@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ContactForm extends StatelessWidget {
+class ContactForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController nameController;
   final TextEditingController emailController;
@@ -16,14 +16,43 @@ class ContactForm extends StatelessWidget {
   });
 
   @override
+  _ContactFormState createState() => _ContactFormState();
+}
+
+class _ContactFormState extends State<ContactForm> {
+  bool _isFormValid = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.nameController.addListener(_updateFormValidity);
+    widget.emailController.addListener(_updateFormValidity);
+    widget.messageController.addListener(_updateFormValidity);
+  }
+
+  @override
+  void dispose() {
+    widget.nameController.removeListener(_updateFormValidity);
+    widget.emailController.removeListener(_updateFormValidity);
+    widget.messageController.removeListener(_updateFormValidity);
+    super.dispose();
+  }
+
+  void _updateFormValidity() {
+    setState(() {
+      _isFormValid = widget.formKey.currentState!.validate();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           TextFormField(
-            controller: nameController,
+            controller: widget.nameController,
             decoration: InputDecoration(labelText: 'Name'),
             validator: (value) {
               if (value!.isEmpty) {
@@ -33,20 +62,20 @@ class ContactForm extends StatelessWidget {
             },
           ),
           TextFormField(
-            controller: emailController,
+            controller: widget.emailController,
             decoration: InputDecoration(labelText: 'Email'),
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your email';
               }
-              if (!value.contains('@')) {
+              if (!value.contains('@') || !value.contains('.')) {
                 return 'Please enter a valid email';
               }
               return null;
             },
           ),
           TextFormField(
-            controller: messageController,
+            controller: widget.messageController,
             decoration: InputDecoration(labelText: 'Message'),
             validator: (value) {
               if (value!.isEmpty) {
@@ -57,7 +86,7 @@ class ContactForm extends StatelessWidget {
           ),
           SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: validateForm,
+            onPressed: _isFormValid ? widget.validateForm : null,
             child: Text('Send'),
           ),
         ],

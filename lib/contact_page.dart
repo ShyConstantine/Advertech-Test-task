@@ -75,12 +75,18 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contact us'),
+        centerTitle: true,
+        title: Text(
+          'Contact us',
+          style: TextStyle(color: Colors.black),
+        ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: _handleClose,
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
