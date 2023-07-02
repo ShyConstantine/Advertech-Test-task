@@ -19,6 +19,7 @@ class _ContactPageState extends State<ContactPage> {
   bool _isError = false;
   bool _isSuccess = false;
 
+  @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
@@ -91,15 +92,17 @@ class _ContactPageState extends State<ContactPage> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            ContactForm(
-              formKey: _formKey,
-              nameController: _nameController,
-              emailController: _emailController,
-              messageController: _messageController,
-              validateForm: _validateForm,
-              isLoading: _isLoading,
-              isError: _isError,
-              isSuccess: _isSuccess,
+            Expanded(
+              child: ContactForm(
+                formKey: _formKey,
+                nameController: _nameController,
+                emailController: _emailController,
+                messageController: _messageController,
+                validateForm: _validateForm,
+                isLoading: _isLoading,
+                isError: _isError,
+                isSuccess: _isSuccess,
+              ),
             ),
             SizedBox(height: 16.0),
             if (_isLoading)
