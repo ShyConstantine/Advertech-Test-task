@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'api_service.dart';
 import 'contact_form.dart';
 
@@ -78,7 +79,10 @@ class _ContactPageState extends State<ContactPage> {
         centerTitle: true,
         title: Text(
           'Contact us',
-          style: TextStyle(color: Colors.black),
+          style: GoogleFonts.montserrat(
+            textStyle: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 26),
+          ),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

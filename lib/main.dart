@@ -3,7 +3,7 @@ import 'contact_page.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Contact App',
+    title: 'Contact us',
     home: ContactPage(),
   ));
 }
