@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'api_service.dart';
 import 'contact_form.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 
 class ContactPage extends StatefulWidget {
   @override

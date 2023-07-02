@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 
 class ContactForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -33,7 +34,7 @@ class ContactForm extends StatelessWidget {
             leading: CircleAvatar(
               backgroundColor: Color(0xFFFFF5E9),
               child: Icon(
-                Icons.lock_open,
+                CommunityMaterialIcons.lock_open,
                 color: Color(0xFFE5BE90),
               ),
             ),
@@ -55,7 +56,7 @@ class ContactForm extends StatelessWidget {
             leading: CircleAvatar(
               backgroundColor: Color(0xFFFFF5E9),
               child: Icon(
-                Icons.lock_open,
+                CommunityMaterialIcons.lock_open,
                 color: Color(0xFFE5BE90),
               ),
             ),
@@ -80,7 +81,7 @@ class ContactForm extends StatelessWidget {
             leading: CircleAvatar(
               backgroundColor: Color(0xFFFFF5E9),
               child: Icon(
-                Icons.lock_open,
+                CommunityMaterialIcons.lock_open,
                 color: Color(0xFFE5BE90),
               ),
             ),
