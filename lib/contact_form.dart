@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ContactForm extends StatefulWidget {
+class ContactForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController messageController;
   final VoidCallback validateForm;
+  final bool isLoading;
+  final bool isError;
+  final bool isSuccess;
 
   ContactForm({
     required this.formKey,
@@ -13,46 +16,20 @@ class ContactForm extends StatefulWidget {
     required this.emailController,
     required this.messageController,
     required this.validateForm,
+    required this.isLoading,
+    required this.isError,
+    required this.isSuccess,
   });
-
-  @override
-  _ContactFormState createState() => _ContactFormState();
-}
-
-class _ContactFormState extends State<ContactForm> {
-  bool _isFormValid = false;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.nameController.addListener(_updateFormValidity);
-    widget.emailController.addListener(_updateFormValidity);
-    widget.messageController.addListener(_updateFormValidity);
-  }
-
-  @override
-  void dispose() {
-    widget.nameController.removeListener(_updateFormValidity);
-    widget.emailController.removeListener(_updateFormValidity);
-    widget.messageController.removeListener(_updateFormValidity);
-    super.dispose();
-  }
-
-  void _updateFormValidity() {
-    setState(() {
-      _isFormValid = widget.formKey.currentState!.validate();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.formKey,
+      key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           TextFormField(
-            controller: widget.nameController,
+            controller: nameController,
             decoration: InputDecoration(labelText: 'Name'),
             validator: (value) {
               if (value!.isEmpty) {
@@ -62,7 +39,7 @@ class _ContactFormState extends State<ContactForm> {
             },
           ),
           TextFormField(
-            controller: widget.emailController,
+            controller: emailController,
             decoration: InputDecoration(labelText: 'Email'),
             validator: (value) {
               if (value!.isEmpty) {
@@ -75,7 +52,7 @@ class _ContactFormState extends State<ContactForm> {
             },
           ),
           TextFormField(
-            controller: widget.messageController,
+            controller: messageController,
             decoration: InputDecoration(labelText: 'Message'),
             validator: (value) {
               if (value!.isEmpty) {
@@ -86,8 +63,11 @@ class _ContactFormState extends State<ContactForm> {
           ),
           SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: _isFormValid ? widget.validateForm : null,
-            child: Text('Send'),
+            onPressed: isLoading ? null : validateForm,
+            child: Text(
+              isLoading ? 'Please wait' : 'Send',
+              style: TextStyle(fontSize: 16.0),
+            ),
           ),
         ],
       ),
